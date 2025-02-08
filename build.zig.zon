@@ -10,7 +10,7 @@
     .dependencies = .{
         // This is not the original MLX repo but rather my zig build of MLX
         .mlx = .{
-            .url = "https://github.com/erikkaum/zig-build-mlx/archive/main.tar.gz",
+            .url = "https://github.com/ErikKaum/zig-build-mlx/archive/75b9c7f720d2f6ac17055dfdcb7a05d22a6eed88.tar.gz",
             .hash = "1220779e7364eb59df9a009571d05e4980c0755d3eb95b1057cdc39bb7aedce32be8",
         },
         // Original MLX-C repo
