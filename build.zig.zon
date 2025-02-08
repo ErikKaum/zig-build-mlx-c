@@ -1,0 +1,27 @@
+.{
+    .name = "mlx-c",
+    .version = "0.1.0",
+
+    // This field is optional.
+    // This is currently advisory only; Zig does not yet do anything
+    // with this value.
+    //.minimum_zig_version = "0.11.0",
+
+    .dependencies = .{
+        // This is not the original MLX repo but rather my zig build of MLX
+        .mlx = .{
+            .url = "https://github.com/erikkaum/zig-build-mlx/archive/main.tar.gz",
+            .hash = "1220779e7364eb59df9a009571d05e4980c0755d3eb95b1057cdc39bb7aedce32be8",
+        },
+        // Original MLX-C repo
+        .@"mlx-c" = .{
+            .url = "https://github.com/ml-explore/mlx-c/archive/refs/tags/v0.1.0.tar.gz",
+            .hash = "1220b85f3ae1dcfc47b58cde41580614dc0162ddf93fd58a0b0e0a1ec5b407679cfc",
+        },
+    },
+    .paths = .{
+        "build.zig",
+        "build.zig.zon",
+        "LICENSE",
+    },
+}
