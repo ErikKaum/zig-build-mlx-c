@@ -4,7 +4,7 @@ This project builds MLX-C with Zig instead of the CMake build system. Meaning th
 
 To create Zig bindings to MLX, there are two steps before arriving at the actual language bindings. [Zig-build-mlx]() builds MLX with Zig, which this project wraps, and then this can be used downstream directly or to create a Zig wrapper ([example repo here]()) around MLX-C. Similarly to how the Swift bindings are built, but swapping CMake for Zig.
 
-![mlx-c-chart](https://github.com/erikkaum/zig-build-mlx-c/blob/main/assets/chart-c-mlx.png?raw=true)
+![mlx-c-chart](https://github.com/erikkaum/zig-build-mlx-c/blob/main/assets/chart-mlx-c.png?raw=true)
 
 ## Supported features
 
