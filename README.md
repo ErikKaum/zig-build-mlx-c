@@ -8,7 +8,11 @@ To create Zig bindings to MLX, there are two steps before arriving at the actual
 
 ## Supported features
 
-[Zig-build-mlx]() contains a list of supported build flags.
+- [ ] Shared libs
+- [x] Build examples
+- [ ] Use system MLX
+
+Also check [Zig-build-mlx](https://github.com/ErikKaum/zig-build-mlx?tab=readme-ov-file#supported-features) for a list of supported build flags for MLX.
 
 ## Usage
 
