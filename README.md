@@ -1,5 +1,7 @@
 # MLX-C built with Zig
 
+> ⚠️ **Caution**: I've only tested this with Zig v 0.13.0.
+
 This project builds MLX-C with Zig instead of the CMake build system. Meaning that these are not Zig language bindings to MLX-C. 
 
 To create Zig bindings to MLX, there are two steps before arriving at the actual language bindings. [Zig-build-mlx](https://github.com/ErikKaum/zig-build-mlx) builds MLX with Zig, which this project wraps, and then this can be used downstream directly or to create a Zig wrapper ([example repo here]()) around MLX-C. Similarly to how the Swift bindings are built, but swapping CMake for Zig.
