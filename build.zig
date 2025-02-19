@@ -5,13 +5,21 @@ const BuildOptions = struct {
     shared_libs: bool,
     build_examples: bool,
     use_system_mlx: bool,
+    metal_output_path: []const u8,
 
-    fn fromOptions(b: *std.Build) BuildOptions {
+    fn fromOptions(b: *std.Build) !BuildOptions {
+        const default_rel_dir = "lib/metal";
+        const default_path = try std.fmt.allocPrint(b.allocator, "{s}/{s}", .{ b.install_prefix, default_rel_dir });
+        const descprition = try std.fmt.allocPrint(b.allocator, "Absolute path to the metallib. Defaults to {s}", .{default_path});
+
         return .{
             // TODO check these defaults and align with MLX-C
             .shared_libs = b.option(bool, "shared-libs", "Build mlx as a shared library") orelse false,
             .build_examples = b.option(bool, "build-examples", "Build examples for mlx C") orelse true,
             .use_system_mlx = b.option(bool, "use-system-mlx", "Build mlx as a shared library") orelse false,
+
+            // not used in og MLX but added here to better control the out dir of mlx.metallib (which contains the kernels)
+            .metal_output_path = b.option([]const u8, "metal-output-path", descprition) orelse default_path,
         };
     }
 };
@@ -29,7 +37,7 @@ pub fn build(b: *std.Build) !void {
     // const optimize = b.standardOptimizeOption(.{});
     const optimize = std.builtin.OptimizeMode.ReleaseFast;
 
-    const options = BuildOptions.fromOptions(b);
+    const options = try BuildOptions.fromOptions(b);
 
     // Original MLX-C
     const og_mlx_c = b.dependency("mlx-c", .{
@@ -59,7 +67,14 @@ pub fn build(b: *std.Build) !void {
         @panic("not implemented");
     } else {
         // TODO the optimization is not passed since it's hardcoded in the zig build of MLX to be ReleaseFast
-        const mlx = b.dependency("mlx", .{ .target = target });
+
+        // Passing the metal output dir like as a build param will do the following
+        // - puts the metallib in this location
+        // - defines the METAL_PATH macro so that the build artifact knows where to look for them
+        // - this ensures that they are in the install_prefix of this library and not in the cache of the dependency
+        const mlx = b.dependency("mlx", .{
+            .@"metal-output-path" = options.metal_output_path,
+        });
         lib.linkLibrary(mlx.artifact("mlx"));
     }
 
